@@ -51,6 +51,7 @@ jobs:
           else COLOR="red"; fi
           jq -n --arg p "$PERCENT" --arg c "$COLOR" \
             '{schemaVersion:1, label:"coverage", message:$p, color:$c}' > badges/frontend.json
+        working-directory: frontend
       - uses: actions/upload-artifact@v4
         with:
           name: badge-frontend
