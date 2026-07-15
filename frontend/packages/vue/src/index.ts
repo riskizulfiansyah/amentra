@@ -1,8 +1,8 @@
 import { defineComponent, h } from 'vue'
-import '@ai-chat/widget'
+import '@amentra/widget'
 
-export const AiChat = defineComponent({
-  name: 'AiChat',
+export const AmentraWidget = defineComponent({
+  name: 'AmentraWidget',
   props: {
     appId: { type: String, required: true },
     apiBaseUrl: { type: String, default: 'http://localhost:8080' },
@@ -26,7 +26,7 @@ export const AiChat = defineComponent({
     })
 
     return () =>
-      h('ai-chat', {
+      h('amentra-widget', {
         ref: onRef,
         'app-id': props.appId,
         'api-base-url': props.apiBaseUrl,

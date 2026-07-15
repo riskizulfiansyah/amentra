@@ -1,16 +1,16 @@
-# AI Chat — Frontend
+# Amentra — Frontend
 
-Embeddable chat widget built with [Lit](https://lit.dev/), Tailwind CSS, and TypeScript. Framework-agnostic via Web Components, with optional React and Vue wrappers.
+Embeddable [Amentra Widget](https://github.com/riski/ai-chat) — built with [Lit](https://lit.dev/), Tailwind CSS, and TypeScript. Framework-agnostic via Web Components, with optional React and Vue wrappers.
 
 ## Architecture
 
 ```
 frontend/
 ├── packages/
-│   ├── chat-widget/    @ai-chat/widget   — Lit web component (core)
-│   ├── react/          @ai-chat/react    — React wrapper
-│   └── vue/            @ai-chat/vue      — Vue wrapper
-├── demo/               @ai-chat/demo     — Vite demo app
+│   ├── widget/         @amentra/widget   — Lit web component (core)
+│   ├── react/          @amentra/react    — React wrapper
+│   └── vue/            @amentra/vue      — Vue wrapper
+├── demo/               @amentra/demo     — Vite demo app
 └── package.json        workspace root
 ```
 
@@ -19,11 +19,11 @@ frontend/
 ```mermaid
 graph TD
     subgraph wrappers["Framework Wrappers"]
-        react["@ai-chat/react<br/>React wrapper"]
-        vue["@ai-chat/vue<br/>Vue wrapper"]
+        react["@amentra/react<br/>React wrapper"]
+        vue["@amentra/vue<br/>Vue wrapper"]
     end
-    subgraph widget["@ai-chat/widget"]
-        root["ai-chat.ts<br/>LitElement root"]
+    subgraph widget["@amentra/widget"]
+        root["amentra.ts<br/>LitElement root"]
         comp["Components"]
         api["chat-api.ts<br/>SSE client"]
         cache["response-cache.ts<br/>n-gram fuzzy cache"]
@@ -54,12 +54,12 @@ graph TD
 ```
 
 ```
-@ai-chat/react   @ai-chat/vue
+@amentra/react   @amentra/vue
         ↘           ↙
-    ┌─────────────────┐
-    │  ai-chat.ts     │
-    │  (LitElement)   │
-    └───┬───┬───┬───┬─┘
+     ┌─────────────────┐
+     │  amentra.ts     │
+     │  (LitElement)   │
+     └───┬───┬───┬───┬─┘
         │   │   │   │
         ↓   ↓   ↓   ↓
   ┌────┐ ┌───┐ ┌───┐ ┌───────────┐
@@ -83,11 +83,11 @@ graph TD
 ### Data Flow
 
 1. User types a message in **ChatInput** → dispatched via Lit event
-2. **ai-chat.ts** root receives the event → checks **response-cache.ts** for fuzzy n-gram match
+2. **amentra.ts** root receives the event → checks **response-cache.ts** for fuzzy n-gram match
 3. **Cache hit** → instant reply shown (no API call). **Cache miss** → calls **ChatApi.send()**
 4. **ChatApi** opens an SSE connection to `POST /chat-stream`
 5. SSE events (`token`, `done`, `error`) are dispatched back as Lit events
-6. **ai-chat.ts** updates state → **MessageBubble** re-renders with new tokens
+6. **amentra.ts** updates state → **MessageBubble** re-renders with new tokens
 7. On `done`, response is cached via **response-cache.ts** (trigram Jaccard similarity ≥ 0.7, 30 min TTL) and conversation persisted to `localStorage`
 
 ## Prerequisites
@@ -107,37 +107,37 @@ bun run build      # builds all distributable packages
 ### Plain HTML (any framework)
 
 ```html
-<script type="module" src="https://cdn.example.com/@ai-chat/widget/dist/index.js"></script>
-<ai-chat app-id="my-app" api-base-url="http://localhost:8080"></ai-chat>
+<script type="module" src="https://cdn.example.com/@amentra/widget/dist/index.js"></script>
+<amentra-widget app-id="my-app" api-base-url="http://localhost:8080"></amentra-widget>
 ```
 
 ### React
 
 ```bash
-bun add @ai-chat/react
+bun add @amentra/react
 ```
 
 ```tsx
-import { AiChat } from '@ai-chat/react'
+import { AmentraWidget } from '@amentra/react'
 
 function App() {
-  return <AiChat appId="app-id" apiBaseUrl="http://localhost:8080" />
+  return <AmentraWidget appId="app-id" apiBaseUrl="http://localhost:8080" />
 }
 ```
 
 ### Vue 3
 
 ```bash
-bun add @ai-chat/vue
+bun add @amentra/vue
 ```
 
 ```vue
 <template>
-  <AiChat app-id="app-id" api-base-url="http://localhost:8080" />
+  <AmentraWidget app-id="app-id" api-base-url="http://localhost:8080" />
 </template>
 
 <script setup>
-import { AiChat } from '@ai-chat/vue'
+import { AmentraWidget } from '@amentra/vue'
 </script>
 ```
 
@@ -181,18 +181,18 @@ import { AiChat } from '@ai-chat/vue'
 ### Via attribute
 
 ```html
-<ai-chat app-id="my-app" theme-color="#1e3a5f"></ai-chat>
+<amentra-widget app-id="my-app" theme-color="#1e3a5f"></amentra-widget>
 ```
 
 ### Via CSS custom property
 
 ```css
-ai-chat {
-  --ai-chat-primary: #1e3a5f;
+amentra-widget {
+  --amentra-primary: #1e3a5f;
 }
 ```
 
-The `--ai-chat-primary` CSS var controls: header background, toggle button, send button, user message bubbles, and empty state icon. A hardcoded `#3b82f6` fallback is used when the var isn't set.
+The `--amentra-primary` CSS var controls: header background, toggle button, send button, user message bubbles, and empty state icon. A hardcoded `#3b82f6` fallback is used when the var isn't set.
 
 The CSS var method is useful when attributes are hard to reach (e.g., framework wrappers) or when multiple widgets need different colors on the same page.
 
@@ -200,22 +200,22 @@ The CSS var method is useful when attributes are hard to reach (e.g., framework 
 
 ### Colors
 
-All accent colors derive from a single `--ai-chat-primary` CSS custom property. Set it on the `<ai-chat>` element or any ancestor:
+All accent colors derive from a single `--amentra-primary` CSS custom property. Set it on the `<amentra-widget>` element or any ancestor:
 
 ```css
-ai-chat {
-  --ai-chat-primary: #1e3a5f;
+amentra-widget {
+  --amentra-primary: #1e3a5f;
 }
 ```
 
 To customize specific elements further, use CSS parts:
 
 ```css
-ai-chat::part(header) {
+amentra-widget::part(header) {
   background: linear-gradient(135deg, #1e3a5f, #2d5a87);
 }
 
-ai-chat::part(send-button) {
+amentra-widget::part(send-button) {
   background: #2d5a87;
   border-radius: 8px;
 }
@@ -241,7 +241,7 @@ The messages area scrolls independently; the page body won't scroll when the wid
 
 ## Local persistence
 
-- **Conversation**: saved to `localStorage` under key `ai-chat:<app-id>` — messages and summary survive page reloads.
+- **Conversation**: saved to `localStorage` under key `amentra:<app-id>` — messages and summary survive page reloads.
 - **Response cache**: cached replies stored in `localStorage` with **30-minute TTL**. Fuzzy n-gram matching (trigram Jaccard similarity ≥ 0.7) catches reworded questions without an API call.
 
 ## Local development
@@ -250,17 +250,17 @@ To test the widget in another project before publishing:
 
 ```bash
 # In frontend root
-cd packages/chat-widget
+cd packages/widget
 bun link
 
 # In your other project
-bun link @ai-chat/widget
+bun link @amentra/widget
 ```
 
 ## Build output
 
 | Package          | Size       | Format |
 |------------------|------------|--------|
-| `@ai-chat/widget`| ~39 KB     | ESM    |
-| `@ai-chat/react` | ~0.5 KB    | ESM    |
-| `@ai-chat/vue`   | ~1 KB      | ESM    |
+| `@amentra/widget`| ~39 KB     | ESM    |
+| `@amentra/react` | ~0.5 KB    | ESM    |
+| `@amentra/vue`   | ~1 KB      | ESM    |

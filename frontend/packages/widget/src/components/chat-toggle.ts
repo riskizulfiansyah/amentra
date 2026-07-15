@@ -14,7 +14,7 @@ export class ChatToggle extends LitElement {
       <button
         part="toggle-button"
         @click=${this._handleClick}
-        style="background-color: var(--ai-chat-primary, #3b82f6)"
+        style="background-color: var(--amentra-primary, #3b82f6)"
         class="fixed bottom-5 right-5 z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2"
         aria-label=${this.open ? 'Close chat' : 'Open chat'}
       >

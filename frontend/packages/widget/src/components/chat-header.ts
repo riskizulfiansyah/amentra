@@ -13,7 +13,7 @@ export class ChatHeader extends LitElement {
     return html`
       <div
         part="header"
-        style="background-color: var(--ai-chat-primary, #3b82f6)"
+        style="background-color: var(--amentra-primary, #3b82f6)"
         class="flex items-center justify-between rounded-t-xl px-4 py-3 text-white"
       >
         <div class="flex items-center gap-2">

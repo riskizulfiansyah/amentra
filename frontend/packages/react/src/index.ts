@@ -1,10 +1,10 @@
 import { createComponent } from '@lit/react'
 import React from 'react'
-import { AiChat as AiChatElement } from '@ai-chat/widget'
+import { AmentraWidget as AmentraWidgetElement } from '@amentra/widget'
 
-export const AiChat = createComponent({
-  tagName: 'ai-chat',
-  elementClass: AiChatElement,
+export const AmentraWidget = createComponent({
+  tagName: 'amentra-widget',
+  elementClass: AmentraWidgetElement,
   react: React,
   events: {
     onMessageSent: 'message-sent',

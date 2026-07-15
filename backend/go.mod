@@ -1,4 +1,4 @@
-module ai-chat
+module amentra
 
 go 1.26.4
 

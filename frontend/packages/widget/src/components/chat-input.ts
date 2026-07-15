@@ -39,7 +39,7 @@ export class ChatInput extends LitElement {
             @click=${this._send}
             ?disabled=${this.disabled || !this._text.trim() || overLimit}
             class="flex h-9 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full text-white transition-colors disabled:cursor-not-allowed disabled:opacity-40"
-            style="background-color: var(--ai-chat-primary, #3b82f6)"
+            style="background-color: var(--amentra-primary, #3b82f6)"
             aria-label="Send message"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

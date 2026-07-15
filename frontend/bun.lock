@@ -6,9 +6,9 @@
       "name": "ai-chat-frontend",
     },
     "demo": {
-      "name": "@ai-chat/demo",
+      "name": "@amentra/demo",
       "dependencies": {
-        "@ai-chat/widget": "workspace:*",
+        "@amentra/widget": "workspace:*",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "vue": "^3.5.13",
@@ -20,8 +20,40 @@
         "vite": "^6.0.7",
       },
     },
-    "packages/chat-widget": {
-      "name": "@ai-chat/widget",
+    "packages/react": {
+      "name": "@amentra/react",
+      "version": "0.1.0",
+      "dependencies": {
+        "@amentra/widget": "workspace:*",
+        "@lit/react": "^1.0.6",
+        "react": "^18.3.1",
+      },
+      "devDependencies": {
+        "@types/react": "^18.3.18",
+        "tsup": "^8.3.6",
+        "typescript": "^5.7.3",
+      },
+      "peerDependencies": {
+        "react": ">=16.8",
+      },
+    },
+    "packages/vue": {
+      "name": "@amentra/vue",
+      "version": "0.1.0",
+      "dependencies": {
+        "@amentra/widget": "workspace:*",
+        "vue": "^3.5.13",
+      },
+      "devDependencies": {
+        "tsup": "^8.3.6",
+        "typescript": "^5.7.3",
+      },
+      "peerDependencies": {
+        "vue": ">=3.0",
+      },
+    },
+    "packages/widget": {
+      "name": "@amentra/widget",
       "version": "0.1.0",
       "dependencies": {
         "lit": "^3.2.0",
@@ -36,49 +68,17 @@
         "typescript": "^5.7.3",
       },
     },
-    "packages/react": {
-      "name": "@ai-chat/react",
-      "version": "0.1.0",
-      "dependencies": {
-        "@ai-chat/widget": "workspace:*",
-        "@lit/react": "^1.0.6",
-        "react": "^18.3.1",
-      },
-      "devDependencies": {
-        "@types/react": "^18.3.18",
-        "tsup": "^8.3.6",
-        "typescript": "^5.7.3",
-      },
-      "peerDependencies": {
-        "react": ">=16.8",
-      },
-    },
-    "packages/vue": {
-      "name": "@ai-chat/vue",
-      "version": "0.1.0",
-      "dependencies": {
-        "@ai-chat/widget": "workspace:*",
-        "vue": "^3.5.13",
-      },
-      "devDependencies": {
-        "tsup": "^8.3.6",
-        "typescript": "^5.7.3",
-      },
-      "peerDependencies": {
-        "vue": ">=3.0",
-      },
-    },
   },
   "packages": {
-    "@ai-chat/demo": ["@ai-chat/demo@workspace:demo"],
-
-    "@ai-chat/react": ["@ai-chat/react@workspace:packages/react"],
-
-    "@ai-chat/vue": ["@ai-chat/vue@workspace:packages/vue"],
-
-    "@ai-chat/widget": ["@ai-chat/widget@workspace:packages/chat-widget"],
-
     "@alloc/quick-lru": ["@alloc/quick-lru@5.2.0", "", {}, "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw=="],
+
+    "@amentra/demo": ["@amentra/demo@workspace:demo"],
+
+    "@amentra/react": ["@amentra/react@workspace:packages/react"],
+
+    "@amentra/vue": ["@amentra/vue@workspace:packages/vue"],
+
+    "@amentra/widget": ["@amentra/widget@workspace:packages/widget"],
 
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
 

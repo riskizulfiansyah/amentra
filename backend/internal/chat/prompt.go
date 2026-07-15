@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+"amentra/internal/config"
 
-	"ai-chat/internal/config"
-	"ai-chat/internal/llm"
+	"amentra/internal/llm"
 )
 
 type PromptBuilder struct{}

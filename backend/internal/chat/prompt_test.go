@@ -1,9 +1,12 @@
 package chat
 
 import (
+	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 
-	"ai-chat/internal/config"
+	"amentra/internal/config"
 )
 
 func TestBuild_Basic(t *testing.T) {
@@ -80,6 +83,48 @@ func TestBuild_WithRecent(t *testing.T) {
 	}
 }
 
+func TestBuild_NoScope(t *testing.T) {
+	b := NewPromptBuilder()
+	cfg := &config.AppConfig{
+		AppID: "test-app",
+		Name:  "Test App",
+	}
+
+	msgs := b.Build(cfg, "", nil, "hello")
+
+	sys := msgs[0].Content
+	if !strings.Contains(sys, "Test App") {
+		t.Fatalf("expected system prompt to contain app name, got:\n%s", sys)
+	}
+	if strings.Contains(sys, "ONLY answer") {
+		t.Fatal("expected no scope restriction when scope is empty")
+	}
+}
+
+func TestBuild_WithKnowledge(t *testing.T) {
+	dir := t.TempDir()
+	oldDir, _ := os.Getwd()
+	os.Chdir(dir)
+	defer os.Chdir(oldDir)
+
+	knowDir := filepath.Join("data/knowledge/test-app")
+	os.MkdirAll(knowDir, 0755)
+	os.WriteFile(filepath.Join(knowDir, "intro.md"), []byte("# About\nThis is test knowledge."), 0644)
+
+	b := NewPromptBuilder()
+	cfg := &config.AppConfig{
+		AppID: "test-app",
+		Name:  "Test App",
+	}
+
+	msgs := b.Build(cfg, "", nil, "hello")
+
+	sys := msgs[0].Content
+	if !strings.Contains(sys, "test knowledge") {
+		t.Fatalf("expected knowledge injected into system prompt, got:\n%s", sys)
+	}
+}
+
 func TestBuild_SystemPromptContainsScope(t *testing.T) {
 	b := NewPromptBuilder()
 	cfg := &config.AppConfig{
@@ -94,6 +139,33 @@ func TestBuild_SystemPromptContainsScope(t *testing.T) {
 	sys := msgs[0].Content
 	if !containsAll(sys, "My App", "about", "projects", "skills", "Only about my app.") {
 		t.Fatalf("system prompt missing required parts:\n%s", sys)
+	}
+}
+
+func TestLoadKnowledge_NotFound(t *testing.T) {
+	got := loadKnowledge("nonexistent-app")
+	if got != "" {
+		t.Fatalf("expected empty string for missing knowledge dir, got %q", got)
+	}
+}
+
+func TestLoadKnowledge_SkipsNonMarkdown(t *testing.T) {
+	dir := t.TempDir()
+	oldDir, _ := os.Getwd()
+	os.Chdir(dir)
+	defer os.Chdir(oldDir)
+
+	knowDir := filepath.Join("data/knowledge/test-app")
+	os.MkdirAll(knowDir, 0755)
+	os.WriteFile(filepath.Join(knowDir, "notes.txt"), []byte("should be ignored"), 0644)
+	os.WriteFile(filepath.Join(knowDir, "facts.md"), []byte("real content"), 0644)
+
+	got := loadKnowledge("test-app")
+	if !strings.Contains(got, "real content") {
+		t.Fatalf("expected 'real content', got %q", got)
+	}
+	if strings.Contains(got, "should be ignored") {
+		t.Fatal("should not include non-markdown files")
 	}
 }
 

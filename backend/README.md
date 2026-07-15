@@ -1,4 +1,4 @@
-# Backend — AI Chat API
+# Backend — Amentra API
 
 ## Architecture
 

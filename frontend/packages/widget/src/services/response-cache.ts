@@ -1,4 +1,4 @@
-const PREFIX = 'ai-chat-cache:'
+const PREFIX = 'amentra-cache:'
 const THRESHOLD = 0.5
 const TTL_MS = 30 * 60 * 1000
 

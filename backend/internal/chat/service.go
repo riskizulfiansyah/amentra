@@ -6,22 +6,22 @@ import (
 	"errors"
 	"log/slog"
 	"net/http"
+"amentra/internal/config"
 
-	"ai-chat/internal/config"
-	"ai-chat/internal/llm"
+	"amentra/internal/llm"
 )
 
-type configLoader interface {
+type ConfigLoader interface {
 	Load(string) (*config.AppConfig, error)
 }
 
 type Service struct {
-	cfgLoader configLoader
+	cfgLoader ConfigLoader
 	prompt    *PromptBuilder
 	llm       llm.Client
 }
 
-func NewService(cfgLoader configLoader, prompt *PromptBuilder, llm llm.Client) *Service {
+func NewService(cfgLoader ConfigLoader, prompt *PromptBuilder, llm llm.Client) *Service {
 	return &Service{
 		cfgLoader: cfgLoader,
 		prompt:    prompt,

@@ -11,6 +11,8 @@ import (
 	"strings"
 )
 
+var httpClient = http.DefaultClient
+
 type Message struct {
 	Role    string `json:"role"`
 	Content string `json:"content"`
@@ -86,11 +88,15 @@ func ChatCompletion(ctx context.Context, messages []Message) (string, error) {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+apiKey())
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		return "", fmt.Errorf("http request: %w", err)
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode >= 500 {
+		return "", fmt.Errorf("server error: %d", resp.StatusCode)
+	}
 
 	var result chatResponse
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
@@ -137,7 +143,7 @@ func StreamChat(ctx context.Context, messages []Message) (<-chan string, <-chan 
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("Authorization", "Bearer "+apiKey())
 
-		resp, err := http.DefaultClient.Do(req)
+		resp, err := httpClient.Do(req)
 		if err != nil {
 			errCh <- fmt.Errorf("http request: %w", err)
 			return

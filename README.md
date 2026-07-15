@@ -1,9 +1,18 @@
-# AI Chat
+# Amentra
 
 [![Go backend](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/riski/ai-chat/gh-pages/coverage/backend.json)](https://github.com/riski/ai-chat/actions/workflows/ci.yml)
 [![Frontend](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/riski/ai-chat/gh-pages/coverage/frontend.json)](https://github.com/riski/ai-chat/actions/workflows/ci.yml)
 
-Scoped multi-app AI chat platform — monorepo with Go backend + frontend.
+> **Intelligence that adapts to your context**
+
+*Amentra* — from *Amenti* (ancient Egyptian), a hidden realm of knowledge. An invisible intelligence layer that connects users to the right knowledge, in the right context.
+
+| Part | Meaning |
+|---|---|
+| **Ament** | hidden / behind-the-scenes |
+| **-ra** | energy / system / activation |
+
+Scoped multi-app AI platform — monorepo with Go backend + frontend web component.
 
 ## Structure
 
@@ -18,7 +27,7 @@ frontend/      — SPA frontend (see frontend/README)
 graph LR
     subgraph Frontend["Frontend (Browser)"]
         direction TB
-        W["ai-chat Widget"]
+        W["Amentra Widget"]
         CACHE["Response Cache<br/>n-gram fuzzy · 30min TTL"]
     end
     subgraph Backend["Backend (Go)"]
@@ -40,10 +49,10 @@ graph LR
 ```
   Frontend                Backend (Go)              External
  ┌──────────────┐       ┌──────────────────┐      ┌──────────┐
- │ @ai-chat/    │       │ HTTP Server      │      │  LLM API │
+ │ @amentra/    │       │ HTTP Server      │      │  LLM API │
  │  react  vue  │       │ internal/server  │      │ (OpenAI- │
  │    ↘   ↙     │       └──────┬───────────┘      │ compat)  │
- │  ai-chat     │──HTTP─→      │                   └────▲─────┘
+ │  Amentra     │──HTTP─→      │                   └────▲─────┘
  │  Widget      │   /SSE       │                        │
  │              │              ↓                        │
  └──────────────┘       ┌──────────────┐                │
@@ -66,4 +75,4 @@ Config-driven, stateless, streaming chat API backed by any OpenAI-compatible LLM
 
 ## Frontend
 
-Embeddable Lit web component with React and Vue wrappers. See [frontend/README.md](frontend/README.md).
+[Amentra Widget](frontend/README.md) — embeddable Lit web component with React and Vue wrappers.

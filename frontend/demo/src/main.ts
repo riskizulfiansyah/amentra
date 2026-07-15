@@ -1,6 +1,6 @@
-import '@ai-chat/widget'
+import '@amentra/widget'
 
-const chat = document.querySelector('ai-chat')
+const chat = document.querySelector('amentra-widget')
 if (chat) {
   const baseUrl = import.meta.env.VITE_API_BASE_URL
   const appId = import.meta.env.VITE_APP_ID

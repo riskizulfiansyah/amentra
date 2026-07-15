@@ -3,9 +3,9 @@ package server
 import (
 	"net/http"
 
-	"ai-chat/internal/chat"
-	"ai-chat/internal/config"
-	"ai-chat/internal/llm"
+	"amentra/internal/chat"
+	"amentra/internal/config"
+	"amentra/internal/llm"
 )
 
 type Server struct {

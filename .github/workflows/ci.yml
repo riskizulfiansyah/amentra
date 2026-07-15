@@ -40,7 +40,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install
         working-directory: frontend
-      - run: bun run --filter @ai-chat/widget test:coverage 2>&1 | tee coverage.txt
+      - run: bun run --filter @amentra/widget test:coverage 2>&1 | tee coverage.txt
         working-directory: frontend
       - run: |
           mkdir -p badges

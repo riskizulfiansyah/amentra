@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"ai-chat/internal/server"
+	"amentra/internal/server"
 
 	"github.com/joho/godotenv"
 )

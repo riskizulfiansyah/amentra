@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"ai-chat/internal/chat"
+	"amentra/internal/chat"
 )
 
 func (s *Server) handleChat(w http.ResponseWriter, r *http.Request) {

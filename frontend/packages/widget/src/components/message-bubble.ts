@@ -21,7 +21,7 @@ export class MessageBubble extends LitElement {
           ? 'rounded-br-md text-white'
           : 'rounded-bl-md border border-gray-200 bg-white text-gray-800'}"
         style=${isUser
-          ? `background-color: var(--ai-chat-primary, #3b82f6)`
+          ? `background-color: var(--amentra-primary, #3b82f6)`
           : ''}
       >
         ${isUser

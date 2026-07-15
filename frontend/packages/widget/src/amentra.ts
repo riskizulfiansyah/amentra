@@ -11,10 +11,10 @@ import { ChatInput } from './components/chat-input.js'
 import { findCachedResponse, cacheResponse } from './services/response-cache.js'
 import './components/typing-indicator.js'
 
-const STORAGE_PREFIX = 'ai-chat:'
+const STORAGE_PREFIX = 'amentra:'
 
-@customElement('ai-chat')
-export class AiChat extends LitElement {
+@customElement('amentra-widget')
+export class AmentraWidget extends LitElement {
   static styles = unsafeCSS(styles)
 
   @property({ attribute: 'app-id', type: String }) appId = ''
@@ -227,7 +227,7 @@ export class AiChat extends LitElement {
     }
 
     return html`
-      <div class="chat-widget-wrapper" style="--ai-chat-primary: ${this.themeColor}">
+      <div class="chat-widget-wrapper" style="--amentra-primary: ${this.themeColor}">
         <chat-toggle
           .open=${this.open}
           @toggle=${this._handleToggle}
@@ -290,9 +290,9 @@ export class AiChat extends LitElement {
       <div class="flex flex-col items-center justify-center py-10 text-center animate-fade-in">
         <div
           class="mb-4 flex h-16 w-16 items-center justify-center rounded-full"
-          style="background-color: color-mix(in srgb, var(--ai-chat-primary, #3b82f6) 12%, transparent)"
+          style="background-color: color-mix(in srgb, var(--amentra-primary, #3b82f6) 12%, transparent)"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--ai-chat-primary, #3b82f6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amentra-primary, #3b82f6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           </svg>
         </div>
@@ -325,6 +325,6 @@ export class AiChat extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'ai-chat': AiChat
+    'amentra-widget': AmentraWidget
   }
 }
