@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chat - Demo</title>
+    <script type="module" src="/src/main.ts"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #1a1a2e; min-height: 100vh; }
+      header { background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color: white; padding: 3rem 2rem; text-align: center; }
+      header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+      header p { opacity: 0.85; font-size: 1rem; }
+      .content { max-width: 800px; margin: 0 auto; padding: 2rem; }
+      .card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+      .card h2 { font-size: 1.1rem; margin-bottom: 0.75rem; color: #1e3a5f; }
+      .card p { color: #555; line-height: 1.6; font-size: 0.95rem; }
+      code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85rem; }
+      pre { background: #1e1e2e; color: #cdd6f4; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; margin-top: 0.75rem; }
+      .usage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      @media (max-width: 640px) { .usage-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>AI Chat Widget</h1>
+      <p>Embeddable chat assistant — powered by Lit, Tailwind, and OpenRouter</p>
+    </header>
+
+    <div class="content">
+      <div class="card">
+        <h2>Usage</h2>
+        <p>Add the <code>&lt;ai-chat&gt;</code> element to any page with the required <code>app-id</code> attribute.</p>
+        <pre>&lt;ai-chat app-id="my-app" api-base-url="http://localhost:8080"&gt;&lt;/ai-chat&gt;</pre>
+      </div>
+
+      <div class="card">
+        <h2>Try it yourself</h2>
+        <p>Make sure the backend is running on <code>localhost:8080</code>. Click the chat bubble below to start.</p>
+      </div>
+
+      <div class="card">
+        <h2>Configuration</h2>
+        <div class="usage-grid">
+          <div>
+            <p><strong>Attributes</strong></p>
+            <pre style="margin-top:0"><code>app-id</code> (required)<br/><code>api-base-url</code><br/><code>title</code><br/><code>theme-color</code><br/><code>placeholder</code><br/><code>max-chars</code></pre>
+          </div>
+          <div>
+            <p><strong>Events</strong></p>
+            <pre style="margin-top:0"><code>message-sent</code><br/><code>message-received</code><br/><code>error</code><br/><code>open-change</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ai-chat app-id="my-app" api-base-url="http://localhost:8080" title="My App" theme-color="#1e3a5f"></ai-chat>
+  </body>
+</html>

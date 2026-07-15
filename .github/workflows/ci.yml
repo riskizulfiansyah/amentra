@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+      - run: go test -v -race -count=1 -coverprofile=coverage.out ./...
+        working-directory: backend
+      - run: |
+          mkdir -p badges
+          PERCENT=$(go tool cover -func=coverage.out | grep total | awk '{print $NF}')
+          if (( $(echo "$PERCENT >= 80" | bc -l) )); then COLOR="brightgreen"
+          elif (( $(echo "$PERCENT >= 60" | bc -l) )); then COLOR="yellow"
+          else COLOR="red"; fi
+          jq -n --arg p "$PERCENT" --arg c "$COLOR" \
+            '{schemaVersion:1, label:"coverage", message:$p, color:$c}' > badges/backend.json
+        working-directory: backend
+      - uses: actions/upload-artifact@v4
+        with:
+          name: badge-backend
+          path: backend/badges/
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+        working-directory: frontend
+      - run: bun run --filter @ai-chat/widget test:coverage 2>&1 | tee coverage.txt
+        working-directory: frontend
+      - run: |
+          mkdir -p badges
+          LINE=$(grep "All files" coverage.txt | awk -F'|' '{print $3}' | tr -d ' %')
+          PERCENT="${LINE}%"
+          if (( $(echo "$LINE >= 80" | bc -l) )); then COLOR="brightgreen"
+          elif (( $(echo "$LINE >= 60" | bc -l) )); then COLOR="yellow"
+          else COLOR="red"; fi
+          jq -n --arg p "$PERCENT" --arg c "$COLOR" \
+            '{schemaVersion:1, label:"coverage", message:$p, color:$c}' > badges/frontend.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: badge-frontend
+          path: frontend/badges/
+
+  deploy-badges:
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: badge-backend
+          path: coverage
+      - uses: actions/download-artifact@v4
+        with:
+          name: badge-frontend
+          path: coverage
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./coverage
+          destination_dir: coverage

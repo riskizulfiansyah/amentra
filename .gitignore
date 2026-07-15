@@ -1,0 +1,7 @@
+.tokensave
+.env
+backend/.env
+backend/configs/*.json
+!backend/configs/_sample.json
+backend/data/knowledge/*/
+!backend/data/knowledge/_sample/

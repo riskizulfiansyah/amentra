@@ -1,0 +1,8 @@
+{
+  "app_id": "your-app-id",
+  "name": "Your App Name",
+  "scope": ["topic1", "topic2", "topic3"],
+  "tone": "professional",
+  "fallback_message": "I can only answer questions related to: topic1, topic2, topic3.",
+  "system_prompt": "You are an assistant for Your App Name. Answer concisely about the defined scope."
+}

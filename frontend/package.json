@@ -1,0 +1,15 @@
+{
+  "name": "ai-chat-frontend",
+  "private": true,
+  "workspaces": ["packages/*", "demo"],
+  "scripts": {
+    "build:widget": "bun run --filter @ai-chat/widget build",
+    "build:wrappers": "bun run --filter @ai-chat/react build && bun run --filter @ai-chat/vue build",
+    "build": "bun run build:widget && bun run build:wrappers",
+    "dev": "bun run build:widget && bun run --filter @ai-chat/demo dev",
+    "dev:demo": "bun run --filter @ai-chat/demo dev",
+    "clean": "bun run --filter '*' clean",
+    "test": "bun run --filter @ai-chat/widget test",
+    "test:coverage": "bun run --filter @ai-chat/widget test:coverage"
+  }
+}

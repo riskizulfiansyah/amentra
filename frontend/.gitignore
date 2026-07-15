@@ -1,0 +1,4 @@
+node_modules
+dist
+src/styles.css
+src/styles.ts
