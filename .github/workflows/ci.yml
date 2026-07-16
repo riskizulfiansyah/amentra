@@ -75,3 +75,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./coverage
           destination_dir: coverage
+          enable_github_pages: true

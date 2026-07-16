@@ -1,6 +1,6 @@
 # Amentra — Frontend
 
-Embeddable [Amentra Widget](https://github.com/riski/ai-chat) — built with [Lit](https://lit.dev/), Tailwind CSS, and TypeScript. Framework-agnostic via Web Components, with optional React and Vue wrappers.
+Embeddable [Amentra Widget](https://github.com/riskizulfiansyah/amentra) — built with [Lit](https://lit.dev/), Tailwind CSS, and TypeScript. Framework-agnostic via Web Components, with optional React and Vue wrappers.
 
 ## Architecture
 

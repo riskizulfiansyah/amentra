@@ -1,7 +1,7 @@
 # Amentra
 
-[![Go backend](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/riski/ai-chat/gh-pages/coverage/backend.json)](https://github.com/riski/ai-chat/actions/workflows/ci.yml)
-[![Frontend](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/riski/ai-chat/gh-pages/coverage/frontend.json)](https://github.com/riski/ai-chat/actions/workflows/ci.yml)
+[![Go backend](https://img.shields.io/endpoint?url=https://riskizulfiansyah.github.io/amentra/coverage/backend.json)](https://github.com/riskizulfiansyah/amentra/actions/workflows/ci.yml)
+[![Frontend](https://img.shields.io/endpoint?url=https://riskizulfiansyah.github.io/amentra/coverage/frontend.json)](https://github.com/riskizulfiansyah/amentra/actions/workflows/ci.yml)
 
 > **Intelligence that adapts to your context**
 
